@@ -1,0 +1,10 @@
+export { default as Navbar } from "./Navbar";
+export { default as Hero } from "./Hero";
+export { default as Modules } from "./Modules";
+export { default as Curriculum } from "./Curriculum";
+export { default as Instructor } from "./Instructor";
+export { default as Results } from "./Results";
+export { default as Pricing } from "./Pricing";
+export { default as FAQ } from "./FAQ";
+export { default as Contact } from "./Contact";
+export { default as Footer } from "./Footer";

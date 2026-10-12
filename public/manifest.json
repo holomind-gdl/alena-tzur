@@ -1,0 +1,14 @@
+{
+  "name": "Косметолог с 0 до 1000$",
+  "short_name": "Косметолог 0→1000$",
+  "icons": [
+    {
+      "src": "/favicon.svg?v=4",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ],
+  "theme_color": "#100d0a",
+  "background_color": "#100d0a",
+  "display": "standalone"
+}

@@ -1,4 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
+import { Resend } from "resend";
+
+function getResendClient() {
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) return null;
+  return new Resend(apiKey);
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -42,12 +49,43 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Здесь будет интеграция с email-сервисом (Resend, SendGrid, Nodemailer и т.д.)
-    // Пока логируем в консоль для разработки
-    console.log("Новая заявка:", { name, email, phone, message });
-
-    // Имитация задержки отправки
-    await new Promise((resolve) => setTimeout(resolve, 500));
+    // Отправка email через Resend
+    const resend = getResendClient();
+    if (resend) {
+      await resend.emails.send({
+        from: "Alena Tzur <onboarding@resend.dev>",
+        to: "lenbiz@gmail.com",
+        subject: `Новая заявка от ${name}`,
+        html: `
+          <div style="font-family: system-ui, sans-serif; max-width: 600px; margin: 0 auto;">
+            <h2 style="color: #1a1a1a;">Новая заявка с сайта Alena Tzur</h2>
+            <table style="width: 100%; border-collapse: collapse;">
+              <tr>
+                <td style="padding: 8px 0; font-weight: bold; color: #333;">Имя:</td>
+                <td style="padding: 8px 0; color: #666;">${name}</td>
+              </tr>
+              <tr>
+                <td style="padding: 8px 0; font-weight: bold; color: #333;">Email:</td>
+                <td style="padding: 8px 0; color: #666;">${email}</td>
+              </tr>
+              <tr>
+                <td style="padding: 8px 0; font-weight: bold; color: #333;">Телефон:</td>
+                <td style="padding: 8px 0; color: #666;">${phone || "Не указан"}</td>
+              </tr>
+              <tr>
+                <td style="padding: 8px 0; font-weight: bold; color: #333;">Сообщение:</td>
+                <td style="padding: 8px 0; color: #666;">${message || "Не указано"}</td>
+              </tr>
+            </table>
+            <hr style="margin: 24px 0; border: none; border-top: 1px solid #eee;">
+            <p style="color: #999; font-size: 12px;">Отправлено с формы обратной связи на alena-tzur.com</p>
+          </div>
+        `,
+      });
+    } else {
+      // Fallback: логирование в консоль (для разработки)
+      console.log("Новая заявка:", { name, email, phone, message });
+    }
 
     return NextResponse.json(
       { success: true, message: "Заявка принята" },

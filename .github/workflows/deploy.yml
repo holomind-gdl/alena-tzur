@@ -31,20 +31,24 @@ jobs:
       - run: npm ci
       - run: npm run build
 
-      - name: Verify build output
+      - name: Verify Next.js build output
         run: |
-          if [ ! -d ".next" ]; then
-            echo "ERROR: .next directory not found after build"
+          echo "Checking .next output..."
+          ls -la
+          if [ ! -d .next ]; then
+            echo ".next directory was not created. Build output is missing."
             exit 1
           fi
-          ls -la .next
+          du -sh .next
+          ls -la .next | head -n 50
 
       - uses: actions/upload-artifact@v4
         with:
           name: nextjs-build
           path: .next/**
+          if-no-files-found: error
           retention-days: 1
-  
+
   deploy-preview:
     needs: build
     if: github.event_name == 'pull_request'
@@ -54,6 +58,7 @@ jobs:
         with:
           name: nextjs-build
           path: .next
+
       - name: Deploy to Vercel Preview
         uses: amondnet/vercel-action@v25
         with:
@@ -72,6 +77,7 @@ jobs:
         with:
           name: nextjs-build
           path: .next
+
       - name: Deploy to Vercel Production
         uses: amondnet/vercel-action@v25
         with:

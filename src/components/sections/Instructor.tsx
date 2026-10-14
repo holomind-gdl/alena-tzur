@@ -8,8 +8,8 @@ export default function Instructor() {
     <Section id="instructor">
       <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
 
-        {/* ── LEFT: Course image ── */}
-        <div className="max-w-sm mx-auto w-full lg:mx-0">
+        {/* ── Course image ── */}
+        <div className="order-2 max-w-sm mx-auto w-full lg:order-1 lg:mx-0">
           <figure>
             <div className="relative aspect-4/3 overflow-hidden rounded-3xl bg-surface">
               <OptimizedImage

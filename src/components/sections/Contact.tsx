@@ -95,8 +95,8 @@ export default function Contact() {
           ) : (
             <>
               {status === "error" && (
-                <div className="mb-6 p-4 rounded-lg bg-red-50 border border-red-200 flex items-center gap-3 text-red-700">
-                  <AlertCircle className="h-5 w-5 shrink-0" />
+                <div role="alert" className="mb-6 p-4 rounded-lg bg-red-50 border border-red-200 flex items-center gap-3 text-red-700">
+                  <AlertCircle className="h-5 w-5 shrink-0" aria-hidden="true" />
                   <p className="text-sm">{errorMessage}</p>
                 </div>
               )}
@@ -113,7 +113,7 @@ export default function Contact() {
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       placeholder="Ваше имя"
                       className="input-base"
-                      aria-describedby={status === "error" ? "name-error" : undefined}
+                      autoComplete="name"
                     />
                   </div>
                   <div>
@@ -124,7 +124,7 @@ export default function Contact() {
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       placeholder="email@example.com"
                       className="input-base"
-                      aria-describedby={status === "error" ? "email-error" : undefined}
+                      autoComplete="email"
                     />
                   </div>
                 </div>
@@ -135,7 +135,7 @@ export default function Contact() {
                     type="tel" id="phone" name="phone"
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    placeholder="+7 ___ ___ __ __"
+                    placeholder="+972 50 123 4567"
                     className="input-base"
                   />
                 </div>

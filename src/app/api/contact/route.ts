@@ -7,12 +7,28 @@ function getResendClient() {
   return new Resend(apiKey);
 }
 
+function escapeHtml(value: string) {
+  return value.replace(/[&<>'"]/g, (character) => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    "'": "&#39;",
+    '"': "&quot;",
+  })[character] ?? character);
+}
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { name, email, phone, message } = body;
+    if (!body || typeof body !== "object" || Array.isArray(body)) {
+      return NextResponse.json({ error: "Некорректные данные" }, { status: 400 });
+    }
 
-    // Валидация
+    const name = typeof body.name === "string" ? body.name.trim() : "";
+    const email = typeof body.email === "string" ? body.email.trim() : "";
+    const phone = typeof body.phone === "string" ? body.phone.trim() : "";
+    const message = typeof body.message === "string" ? body.message.trim() : "";
+
     if (!name || !email) {
       return NextResponse.json(
         { error: "Имя и email обязательны" },
@@ -55,26 +71,26 @@ export async function POST(request: NextRequest) {
       await resend.emails.send({
         from: "Alena Tzur <onboarding@resend.dev>",
         to: "lenbiz@gmail.com",
-        subject: `Новая заявка от ${name}`,
+        subject: `Новая заявка от ${escapeHtml(name)}`,
         html: `
           <div style="font-family: system-ui, sans-serif; max-width: 600px; margin: 0 auto;">
             <h2 style="color: #1a1a1a;">Новая заявка с сайта Alena Tzur</h2>
             <table style="width: 100%; border-collapse: collapse;">
               <tr>
                 <td style="padding: 8px 0; font-weight: bold; color: #333;">Имя:</td>
-                <td style="padding: 8px 0; color: #666;">${name}</td>
+                <td style="padding: 8px 0; color: #666;">${escapeHtml(name)}</td>
               </tr>
               <tr>
                 <td style="padding: 8px 0; font-weight: bold; color: #333;">Email:</td>
-                <td style="padding: 8px 0; color: #666;">${email}</td>
+                <td style="padding: 8px 0; color: #666;">${escapeHtml(email)}</td>
               </tr>
               <tr>
                 <td style="padding: 8px 0; font-weight: bold; color: #333;">Телефон:</td>
-                <td style="padding: 8px 0; color: #666;">${phone || "Не указан"}</td>
+                <td style="padding: 8px 0; color: #666;">${escapeHtml(phone || "Не указан")}</td>
               </tr>
               <tr>
                 <td style="padding: 8px 0; font-weight: bold; color: #333;">Сообщение:</td>
-                <td style="padding: 8px 0; color: #666;">${message || "Не указано"}</td>
+                <td style="padding: 8px 0; color: #666;">${escapeHtml(message || "Не указано")}</td>
               </tr>
             </table>
             <hr style="margin: 24px 0; border: none; border-top: 1px solid #eee;">

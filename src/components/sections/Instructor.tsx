@@ -9,7 +9,7 @@ export default function Instructor() {
       <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
 
         {/* ── Course image ── */}
-        <div className="order-2 max-w-sm mx-auto w-full lg:order-1 lg:mx-0">
+        <div className="hidden lg:order-1 lg:block max-w-sm mx-auto w-full lg:mx-0">
           <figure>
             <div className="relative aspect-4/3 overflow-hidden rounded-3xl bg-surface">
               <OptimizedImage
@@ -43,6 +43,35 @@ export default function Instructor() {
           <h2 className="font-serif text-4xl lg:text-5xl font-bold text-text-primary mb-4 text-balance">
             {instructor.name}
           </h2>
+
+          <div className="lg:hidden max-w-sm mb-8">
+            <figure>
+              <div className="relative aspect-4/3 overflow-hidden rounded-3xl bg-surface">
+                <OptimizedImage
+                  src="/images/cosmetology-facial-unsplash.jpg"
+                  alt="Клиентка проходит уходовую процедуру для лица"
+                  fill
+                  sizes="(max-width: 1023px) 100vw, 40vw"
+                  className="object-cover"
+                />
+              </div>
+              <figcaption className="mt-3 text-xs text-text-secondary">
+                Иллюстративное фото процедуры ·{" "}
+                <a
+                  href="https://unsplash.com/photos/woman-lying-on-blue-towel-with-white-cream-on-face-g-m8EDc4X6Q"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="underline underline-offset-2"
+                >
+                  engin akyurt / Unsplash
+                </a>
+              </figcaption>
+              <p className="mt-1 text-xs text-text-secondary">
+                Фото преподавателя в материалах проекта отсутствует.
+              </p>
+            </figure>
+          </div>
+
           <p className="text-text-secondary mb-8 leading-relaxed text-lg">{instructor.bio}</p>
 
           {/* Stats grid */}

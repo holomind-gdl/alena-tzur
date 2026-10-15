@@ -13,27 +13,25 @@ export default function Instructor() {
           <figure>
             <div className="relative aspect-4/3 overflow-hidden rounded-3xl bg-surface">
               <OptimizedImage
-                src="/images/cosmetology-facial-unsplash.jpg"
-                alt="Клиентка проходит уходовую процедуру для лица"
+                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202026-10-15%20at%2011.40.43-jZD4sh5bh0Se1u9w0Wr9U78tRQbP63.png"
+                alt="Преподаватель выполняет уходовую процедуру для лица"
                 fill
                 sizes="(max-width: 1023px) 100vw, 40vw"
                 className="object-cover"
               />
             </div>
             <figcaption className="mt-3 text-xs text-text-secondary">
-              Иллюстративное фото процедуры ·{" "}
+              Фото преподавателя ·{" "}
               <a
-                href="https://unsplash.com/photos/woman-lying-on-blue-towel-with-white-cream-on-face-g-m8EDc4X6Q"
+                href="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202026-10-15%20at%2011.40.43-jZD4sh5bh0Se1u9w0Wr9U78tRQbP63.png"
                 target="_blank"
                 rel="noreferrer"
                 className="underline underline-offset-2"
               >
-                engin akyurt / Unsplash
+                Источник изображения
               </a>
             </figcaption>
-            <p className="mt-1 text-xs text-text-secondary">
-              Фото преподавателя в материалах проекта отсутствует.
-            </p>
+            
           </figure>
         </div>
 
@@ -48,27 +46,25 @@ export default function Instructor() {
             <figure>
               <div className="relative aspect-4/3 overflow-hidden rounded-3xl bg-surface">
                 <OptimizedImage
-                  src="/images/cosmetology-facial-unsplash.jpg"
-                  alt="Клиентка проходит уходовую процедуру для лица"
+                  src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202026-10-15%20at%2011.40.43-jZD4sh5bh0Se1u9w0Wr9U78tRQbP63.png"
+                  alt="Преподаватель выполняет уходовую процедуру для лица"
                   fill
                   sizes="(max-width: 1023px) 100vw, 40vw"
                   className="object-cover"
                 />
               </div>
               <figcaption className="mt-3 text-xs text-text-secondary">
-                Иллюстративное фото процедуры ·{" "}
+                Фото преподавателя ·{" "}
                 <a
-                  href="https://unsplash.com/photos/woman-lying-on-blue-towel-with-white-cream-on-face-g-m8EDc4X6Q"
+                  href="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202026-10-15%20at%2011.40.43-jZD4sh5bh0Se1u9w0Wr9U78tRQbP63.png"
                   target="_blank"
                   rel="noreferrer"
                   className="underline underline-offset-2"
                 >
-                  engin akyurt / Unsplash
+                  Источник изображения
                 </a>
               </figcaption>
-              <p className="mt-1 text-xs text-text-secondary">
-                Фото преподавателя в материалах проекта отсутствует.
-              </p>
+
             </figure>
           </div>
 

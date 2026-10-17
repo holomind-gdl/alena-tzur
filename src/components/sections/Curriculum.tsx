@@ -24,7 +24,7 @@ export default function Curriculum() {
       <SectionHeader
         eyebrow="Уроки"
         title="Программа по модулям"
-        subtitle="Раскройте модуль, чтобы увидеть его уроки. В программе 6 модулей и 48 уроков."
+        subtitle="Раскройте модуль, чтобы увидеть его уроки. В программе 6 модулей и 29 тематических уроков."
       />
 
       <div className="space-y-4">

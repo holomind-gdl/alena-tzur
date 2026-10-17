@@ -52,7 +52,7 @@ export default function Hero() {
             <motion.ul {...anim(0.25)} className="flex flex-wrap gap-3 mb-10">
               {[
                 "Без опыта",
-                "48 видеоуроков",
+                "29 тематических уроков",
                 "Сертификат",
                 "Поддержка ментора",
               ].map((tag) => (

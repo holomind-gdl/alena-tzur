@@ -6,9 +6,7 @@ import { modules } from "@/lib/data";
 import { useState } from "react";
 
 export default function Curriculum() {
-  const [expanded, setExpanded] = useState<Set<number>>(() =>
-    new Set(modules.length > 0 ? [modules[0].id] : [])
-  );
+  const [expanded, setExpanded] = useState<Set<number>>(new Set());
 
   const toggle = (id: number) => {
     setExpanded((prev) => {

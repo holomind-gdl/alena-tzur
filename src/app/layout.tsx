@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import ScrollProgress from "@/components/ui/ScrollProgress";
+import AccessibilityWidget from "@/components/ui/AccessibilityWidget";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -43,6 +44,7 @@ export default function RootLayout({
       <body suppressHydrationWarning className="min-h-screen flex flex-col">
         <ScrollProgress />
         {children}
+        <AccessibilityWidget />
       </body>
     </html>
   );

@@ -1,9 +1,27 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Section from "@/components/ui/Section";
-import { CheckCircle2 } from "lucide-react";
+import { CheckCircle2, X } from "lucide-react";
 import { instructor } from "@/lib/data";
 import OptimizedImage from "@/components/ui/OptimizedImage";
 
+const instructorImage = "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202026-10-15%20at%2011.40.43-jZD4sh5bh0Se1u9w0Wr9U78tRQbP63.png";
+
 export default function Instructor() {
+  const [isImageOpen, setIsImageOpen] = useState(false);
+
+  useEffect(() => {
+    if (!isImageOpen) return;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setIsImageOpen(false);
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [isImageOpen]);
+
   return (
     <Section id="instructor">
       <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
@@ -11,15 +29,20 @@ export default function Instructor() {
         {/* ── Course image ── */}
         <div className="hidden lg:order-1 lg:block max-w-sm mx-auto w-full lg:mx-0">
           <figure>
-            <div className="relative aspect-4/3 overflow-hidden rounded-3xl bg-surface">
+            <button
+              type="button"
+              className="relative block aspect-4/3 w-full overflow-hidden rounded-3xl bg-surface cursor-zoom-in focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+              onClick={() => setIsImageOpen(true)}
+              aria-label="Открыть фото преподавателя"
+            >
               <OptimizedImage
-                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202026-10-15%20at%2011.40.43-jZD4sh5bh0Se1u9w0Wr9U78tRQbP63.png"
+                src={instructorImage}
                 alt="Преподаватель выполняет уходовую процедуру для лица"
                 fill
                 sizes="(max-width: 1023px) 100vw, 40vw"
                 className="object-cover"
               />
-            </div>
+            </button>
             <figcaption className="mt-3 text-xs text-text-secondary">
               Фото преподавателя ·{" "}
               <a
@@ -46,7 +69,7 @@ export default function Instructor() {
             <figure>
               <div className="relative aspect-4/3 overflow-hidden rounded-3xl bg-surface">
                 <OptimizedImage
-                  src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202026-10-15%20at%2011.40.43-jZD4sh5bh0Se1u9w0Wr9U78tRQbP63.png"
+                  src={instructorImage}
                   alt="Преподаватель выполняет уходовую процедуру для лица"
                   fill
                   sizes="(max-width: 1023px) 100vw, 40vw"
@@ -91,6 +114,30 @@ export default function Instructor() {
           </ul>
         </div>
       </div>
+
+      {isImageOpen && (
+        <div
+          className="fixed inset-0 z-50 flex cursor-zoom-out items-center justify-center bg-black/80 p-4 backdrop-blur-sm"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Фото преподавателя"
+          onClick={() => setIsImageOpen(false)}
+        >
+          <button
+            type="button"
+            className="absolute right-4 top-4 rounded-full p-2 text-white transition-colors hover:bg-white/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+            aria-label="Закрыть фото"
+            onClick={() => setIsImageOpen(false)}
+          >
+            <X className="h-6 w-6" />
+          </button>
+          <img
+            src={instructorImage}
+            alt="Преподаватель выполняет уходовую процедуру для лица"
+            className="max-h-[calc(100vh-2rem)] max-w-full object-contain"
+          />
+        </div>
+      )}
     </Section>
   );
 }

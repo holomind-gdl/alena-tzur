@@ -26,6 +26,7 @@ export default function Pricing() {
             features={plan.features}
             cta={plan.cta}
             popular={plan.popular}
+            ctaClassName="bg-text-primary text-background hover:bg-secondary"
             index={index}
             className={
               index === pricing.length - 1

@@ -49,7 +49,7 @@ export default function Hero() {
             </motion.p>
 
             {/* Proof pills */}
-            <motion.ul {...anim(0.25)} className="flex flex-wrap gap-3 mb-10">
+            <motion.ul {...anim(0.25)} className="flex flex-col gap-3 mb-10 sm:flex-row sm:flex-wrap">
               {[
                 "Без опыта",
                 "29 тематических уроков",

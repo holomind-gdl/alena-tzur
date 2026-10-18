@@ -86,7 +86,7 @@ export default function Instructor() {
                 />
               </div>
               <figcaption className="mt-3 text-xs text-text-secondary">
-                Фото преподавателя · Алёна тур
+                Фото преподавателя · Алёна Цур
               </figcaption>
 
             </figure>

@@ -2,11 +2,22 @@
 
 import Section from "@/components/ui/Section";
 import SectionHeader from "@/components/ui/SectionHeader";
-import { modules } from "@/lib/data";
 import { useState } from "react";
 
-export default function Curriculum() {
-  const [expanded, setExpanded] = useState<Set<number>>(new Set());
+export default function Curriculum({
+  modules,
+}: {
+  modules: {
+    id: number;
+    title: string;
+    lessons: number;
+    description: string;
+    topics: string[];
+  }[] | null;
+}) {
+  const [expanded, setExpanded] = useState<Set<number>>(() =>
+    new Set(modules?.length ?? 0 > 0 ? [modules![0].id] : [])
+  );
 
   const toggle = (id: number) => {
     setExpanded((prev) => {
@@ -17,12 +28,14 @@ export default function Curriculum() {
     });
   };
 
+  if (!modules) return null;
+
   return (
     <Section id="curriculum" className="bg-surface-elevated/50">
       <SectionHeader
         eyebrow="Уроки"
         title="Программа по модулям"
-        subtitle="Раскройте модуль, чтобы увидеть его уроки. В программе 6 модулей и 29 тематических уроков."
+        subtitle="Раскройте модуль, чтобы увидеть его уроки. В программе 6 модулей и 48 уроков."
       />
 
       <div className="space-y-4">
@@ -76,21 +89,21 @@ export default function Curriculum() {
                 </span>
               </button>
               {isOpen && (
-                  <div id={panelId} className="border-t border-border px-5 py-5 sm:px-8">
-                    <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-text-secondary">
-                      Темы модуля
-                    </p>
-                    <ol className="grid gap-x-8 gap-y-2 sm:grid-cols-2">
-                      {module.topics.map((topic, index) => (
-                        <li key={topic} className="flex gap-3 text-sm leading-relaxed text-text-primary">
-                          <span aria-hidden="true" className="shrink-0 font-medium text-primary">
-                            {String(index + 1).padStart(2, "0")}
-                          </span>
-                          <span>{topic}</span>
-                        </li>
-                      ))}
-                    </ol>
-                  </div>
+                <div id={panelId} className="border-t border-border px-5 py-5 sm:px-8">
+                  <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-text-secondary">
+                    Темы модуля
+                  </p>
+                  <ol className="grid gap-x-8 gap-y-2 sm:grid-cols-2">
+                    {module.topics.map((topic, index) => (
+                      <li key={topic} className="flex gap-3 text-sm leading-relaxed text-text-primary">
+                        <span aria-hidden="true" className="shrink-0 font-medium text-primary">
+                          {String(index + 1).padStart(2, "0")}
+                        </span>
+                        <span>{topic}</span>
+                      </li>
+                    ))}
+                  </ol>
+                </div>
               )}
             </div>
           );

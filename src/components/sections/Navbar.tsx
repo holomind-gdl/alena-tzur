@@ -1,10 +1,8 @@
 "use client";
 
-import Link from "next/link";
-import { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
+import { useState } from "react";
 import Logo from "@/components/ui/Logo";
-import { NAVBAR } from "@/lib/constants";
+import { Menu, X } from "lucide-react";
 
 export default function Navbar({
   navLinks,
@@ -13,94 +11,56 @@ export default function Navbar({
   navLinks: { href: string; label: string }[];
   brand: string;
 }) {
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > NAVBAR.SCROLL_THRESHOLD);
-    window.addEventListener("scroll", handler, { passive: true });
-    return () => window.removeEventListener("scroll", handler);
-  }, []);
-
-  const scrollToSection = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-    setMobileOpen(false);
-  };
+  const [open, setOpen] = useState(false);
 
   return (
-    <header
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-background/95 backdrop-blur-md shadow-sm border-b border-border/40"
-          : "bg-transparent"
-      }`}
-    >
-      <nav className="mx-auto flex max-w-7xl items-center gap-8 px-5 py-4 lg:px-10">
-        <Link href="/#top" aria-label="Home" className="shrink-0">
-          <Logo />
-        </Link>
+    <header className="fixed inset-x-0 top-0 z-50 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80 border-b border-border">
+      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 lg:px-10">
+        <a href="/" className="flex items-center gap-2">
+          <Logo size="md" />
+          <span className="font-serif text-lg font-bold text-text-primary hidden sm:inline-block">
+            {brand}
+          </span>
+        </a>
 
-        <ul className="hidden lg:flex list-none items-center gap-6 p-0 m-0">
+        <nav className="hidden lg:flex lg:items-center lg:gap-8">
           {navLinks.map((link) => (
-            <li key={link.href}>
-              <Link
-                href={link.href}
-                className="text-sm font-medium text-text-secondary transition-colors hover:text-text-primary"
-              >
-                {link.label}
-              </Link>
-            </li>
+            <a
+              key={link.href}
+              href={link.href}
+              className="text-sm font-medium text-text-secondary hover:text-primary transition-colors"
+            >
+              {link.label}
+            </a>
           ))}
-        </ul>
-
-        <Link
-          href="#contact"
-          className="hidden lg:inline-flex ml-auto items-center justify-center rounded-full bg-text-primary text-background px-5 py-2.5 text-sm font-semibold transition-all hover:bg-secondary hover:text-background min-h-[44px] shrink-0"
-        >
-          Записаться
-        </Link>
+        </nav>
 
         <button
-          className="flex lg:hidden items-center justify-center h-10 w-10 rounded-full border border-border text-text-secondary ml-auto shrink-0"
-          aria-label={mobileOpen ? "Закрыть меню" : "Открыть меню"}
-          aria-expanded={mobileOpen}
-          onClick={() => setMobileOpen(!mobileOpen)}
+          type="button"
+          onClick={() => setOpen(!open)}
+          className="lg:hidden p-2 text-text-secondary hover:text-primary transition-colors"
+          aria-label="Toggle navigation menu"
         >
-          {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
-      </nav>
+      </div>
 
-      <div
-        className={`overflow-hidden bg-background/98 backdrop-blur-xl transition-all duration-300 lg:hidden border-b border-border/50 ${
-          mobileOpen ? "max-h-[500px]" : "max-h-0"
-        }`}
-      >
-        <ul className="flex flex-col gap-1 px-5 py-4">
-          {navLinks.map((link) => (
-            <li key={link.href}>
+      {open && (
+        <div className="lg:hidden border-t border-border bg-background">
+          <nav className="mx-auto flex max-w-7xl flex-col px-5 py-4 gap-4">
+            {navLinks.map((link) => (
               <a
+                key={link.href}
                 href={link.href}
-                className="block rounded-lg px-3 py-3 text-base font-medium text-text-primary transition-colors hover:bg-surface hover:text-primary"
-                onClick={() => scrollToSection(link.href)}
+                onClick={() => setOpen(false)}
+                className="text-base font-medium text-text-secondary hover:text-primary transition-colors py-2"
               >
                 {link.label}
               </a>
-            </li>
-          ))}
-          <li className="mt-2">
-            <a
-              href="#contact"
-              className="block rounded-full bg-text-primary text-background px-3 py-3 text-base font-semibold text-center"
-              onClick={() => scrollToSection("#contact")}
-            >
-              Записаться
-            </a>
-          </li>
-        </ul>
-      </div>
+            ))}
+          </nav>
+        </div>
+      )}
     </header>
   );
 }

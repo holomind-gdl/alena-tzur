@@ -86,15 +86,7 @@ export default function Instructor() {
                 />
               </div>
               <figcaption className="mt-3 text-xs text-text-secondary">
-                Фото преподавателя ·{" "}
-                <a
-                  href="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202026-10-15%20at%2011.40.43-jZD4sh5bh0Se1u9w0Wr9U78tRQbP63.png"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="underline underline-offset-2"
-                >
-                  Источник изображения
-                </a>
+                Фото преподавателя · Алёна тур
               </figcaption>
 
             </figure>

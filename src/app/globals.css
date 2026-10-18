@@ -157,8 +157,42 @@
 }
 
 @layer base {
+  :root {
+    --accessibility-font-scale: 1;
+  }
+
+  html.accessibility-grayscale {
+    filter: grayscale(1);
+  }
+
+  html.accessibility-high-contrast {
+    --color-background: #ffffff;
+    --color-surface: #ffffff;
+    --color-surface-elevated: #ffffff;
+    --color-primary: #7a1f3d;
+    --color-primary-hover: #5d1530;
+    --color-text-primary: #000000;
+    --color-text-secondary: #262626;
+    --color-border: #000000;
+    --color-focus: #000000;
+  }
+
+  html.accessibility-underline-links a {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  html.accessibility-reduced-motion *,
+  html.accessibility-reduced-motion *::before,
+  html.accessibility-reduced-motion *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+
   html {
-    font-size: 100%;
+    font-size: calc(100% * var(--accessibility-font-scale));
     text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;
     overflow-x: clip;

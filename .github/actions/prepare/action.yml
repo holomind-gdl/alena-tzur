@@ -1,0 +1,35 @@
+name: Prepare Node and Install
+description: "Composite action to checkout repository, setup Node, and install npm dependencies. Use this to reduce duplication in workflows."
+
+inputs:
+  node-version:
+    description: 'Node version to install'
+    required: false
+    default: '22'
+  install:
+    description: 'Whether to run npm install. Use "true" or "false".'
+    required: false
+    default: 'true'
+  fetch-depth:
+    description: 'fetch-depth for checkout (0 for full history)'
+    required: false
+    default: '1'
+
+runs:
+  using: composite
+  steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: ${{ inputs.fetch-depth }}
+
+    - name: Setup Node
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ inputs.node-version }}
+        cache: 'npm'
+
+    - name: Install dependencies
+      if: ${{ inputs.install == 'true' }}
+      shell: bash
+      run: npm install --no-audit --no-fund

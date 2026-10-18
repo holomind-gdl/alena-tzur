@@ -4,10 +4,15 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import Logo from "@/components/ui/Logo";
-import { navLinks } from "@/lib/data";
 import { NAVBAR } from "@/lib/constants";
 
-export default function Navbar() {
+export default function Navbar({
+  navLinks,
+  brand,
+}: {
+  navLinks: { href: string; label: string }[];
+  brand: string;
+}) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -34,12 +39,10 @@ export default function Navbar() {
       }`}
     >
       <nav className="mx-auto flex max-w-7xl items-center gap-8 px-5 py-4 lg:px-10">
-        {/* Logo */}
         <Link href="/#top" aria-label="Home" className="shrink-0">
           <Logo />
         </Link>
 
-        {/* Desktop links */}
         <ul className="hidden lg:flex list-none items-center gap-6 p-0 m-0">
           {navLinks.map((link) => (
             <li key={link.href}>
@@ -53,7 +56,6 @@ export default function Navbar() {
           ))}
         </ul>
 
-        {/* Primary call to action */}
         <Link
           href="#contact"
           className="hidden lg:inline-flex ml-auto items-center justify-center rounded-full bg-text-primary text-background px-5 py-2.5 text-sm font-semibold transition-all hover:bg-secondary hover:text-background min-h-[44px] shrink-0"
@@ -61,7 +63,6 @@ export default function Navbar() {
           Записаться
         </Link>
 
-        {/* Mobile burger */}
         <button
           className="flex lg:hidden items-center justify-center h-10 w-10 rounded-full border border-border text-text-secondary ml-auto shrink-0"
           aria-label={mobileOpen ? "Закрыть меню" : "Открыть меню"}
@@ -72,7 +73,6 @@ export default function Navbar() {
         </button>
       </nav>
 
-      {/* Mobile menu */}
       <div
         className={`overflow-hidden bg-background/98 backdrop-blur-xl transition-all duration-300 lg:hidden border-b border-border/50 ${
           mobileOpen ? "max-h-[500px]" : "max-h-0"

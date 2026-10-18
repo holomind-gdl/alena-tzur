@@ -3,9 +3,14 @@
 import { useState } from "react";
 import { Send, Check, Phone, Mail, CheckCircle2, AlertCircle } from "lucide-react";
 import Section from "@/components/ui/Section";
-import { email, phone } from "@/lib/data";
 
-export default function Contact() {
+export default function Contact({
+  email,
+  phone,
+}: {
+  email?: string | null;
+  phone?: string | null;
+}) {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
   const [formData, setFormData] = useState({ name: "", email: "", phone: "", message: "" });
@@ -39,8 +44,6 @@ export default function Contact() {
   return (
     <Section id="contact">
       <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
-
-        {/* ── LEFT ── */}
         <div>
           <p className="text-sm font-semibold text-primary uppercase tracking-[0.18em] mb-4">Записаться</p>
           <h2 className="font-serif text-4xl lg:text-5xl font-bold text-text-primary mb-5 text-balance leading-tight">
@@ -50,7 +53,6 @@ export default function Contact() {
             Оставьте заявку — мы свяжемся в течение 2 рабочих дней. Бесплатная консультация по программе и условиям.
           </p>
 
-          {/* Benefits */}
           <ul className="space-y-4 mb-10">
             {[
               "Бесплатный звонок с разбором вашей ситуации",
@@ -65,20 +67,22 @@ export default function Contact() {
             ))}
           </ul>
 
-          {/* Contact info */}
           <div className="space-y-3 pt-8 border-t border-border">
-            <a href={`tel:${phone}`} className="flex items-center gap-3 text-sm text-text-secondary hover:text-text-primary transition-colors">
-              <Phone className="h-4 w-4 text-primary" />
-              {phone}
-            </a>
-            <a href={`mailto:${email}`} className="flex items-center gap-3 text-sm text-text-secondary hover:text-text-primary transition-colors">
-              <Mail className="h-4 w-4 text-primary" />
-              {email}
-            </a>
+            {phone && (
+              <a href={`tel:${phone}`} className="flex items-center gap-3 text-sm text-text-secondary hover:text-text-primary transition-colors">
+                <Phone className="h-4 w-4 text-primary" />
+                {phone}
+              </a>
+            )}
+            {email && (
+              <a href={`mailto:${email}`} className="flex items-center gap-3 text-sm text-text-secondary hover:text-text-primary transition-colors">
+                <Mail className="h-4 w-4 text-primary" />
+                {email}
+              </a>
+            )}
           </div>
         </div>
 
-        {/* ── RIGHT: Form ── */}
         <form
           onSubmit={handleSubmit}
           className="bg-surface rounded-3xl border border-border p-8 lg:p-10"

@@ -1,9 +1,22 @@
 import Section from "@/components/ui/Section";
 import SectionHeader from "@/components/ui/SectionHeader";
-import { results } from "@/lib/data";
 import { ANIMATION } from "@/lib/constants";
 
-export default function Results() {
+export default function Results({
+  results,
+}: {
+  results: {
+    name: string;
+    before: string;
+    after: string;
+    timeline: string;
+    quote: string;
+    beforeImage?: { url?: string; alt?: string } | null;
+    afterImage?: { url?: string; alt?: string } | null;
+  }[] | null;
+}) {
+  if (!results) return null;
+
   return (
     <Section id="results" className="bg-surface/40">
       <SectionHeader
@@ -21,7 +34,6 @@ export default function Results() {
               animationDelay: `${index * ANIMATION.STAGGER_DELAY}s`,
             }}
           >
-            {/* Header */}
             <div className="px-6 pt-6 pb-5 border-b border-border">
               <div className="flex items-center gap-3 mb-1">
                 <div className="h-10 w-10 rounded-full bg-primary/20 flex items-center justify-center shrink-0">
@@ -36,7 +48,6 @@ export default function Results() {
               </div>
             </div>
 
-            {/* Before / After */}
             <div className="px-6 py-5 flex-1 space-y-3">
               <div className="rounded-xl border border-border bg-surface-elevated p-4">
                 <p className="text-xs font-bold text-text-secondary uppercase tracking-widest mb-1.5">Было</p>
@@ -49,7 +60,6 @@ export default function Results() {
               </div>
             </div>
 
-            {/* Quote */}
             <blockquote className="px-6 pb-6 text-sm text-text-secondary italic border-t border-border pt-4">
               &ldquo;{result.quote}&rdquo;
             </blockquote>

@@ -3,9 +3,22 @@
 import Section from "@/components/ui/Section";
 import SectionHeader from "@/components/ui/SectionHeader";
 import PriceCard from "@/components/ui/PriceCard";
-import { pricing } from "@/lib/data";
 
-export default function Pricing() {
+export default function Pricing({
+  pricing,
+}: {
+  pricing: {
+    id: string;
+    name: string;
+    price: string;
+    oldPrice?: string;
+    description: string;
+    features: string[];
+    cta: string;
+    popular: boolean;
+  }[] | null;
+}) {
+  if (!pricing) return null;
 
   return (
     <Section id="pricing">
@@ -36,7 +49,6 @@ export default function Pricing() {
         ))}
       </div>
 
-      {/* Guarantee note */}
       <p className="text-center text-sm text-text-secondary mt-8">
         🛡️ 14 дней на возврат средств без вопросов · Рассрочка 0% на 3 и 6 месяцев
       </p>

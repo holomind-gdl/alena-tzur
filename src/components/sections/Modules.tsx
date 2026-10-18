@@ -1,27 +1,39 @@
 import Section from "@/components/ui/Section";
 import SectionHeader from "@/components/ui/SectionHeader";
-import { modules } from "@/lib/data";
 import { ANIMATION } from "@/lib/constants";
 
-const ACCENT_COLOR_CLASSES = [
-  "bg-dusty-rose-300",
-  "bg-champagne-300",
-  "bg-warm-taupe-300",
-  "bg-dusty-rose-200",
-  "bg-champagne-200",
-  "bg-fresh-sky-blue-300",
-];
+export default function Modules({
+  modules,
+}: {
+  modules: {
+    id: number;
+    title: string;
+    lessons: number;
+    description: string;
+    topics: string[];
+    image?: { url?: string; alt?: string } | null;
+  }[] | null;
+}) {
+  if (!modules) return null;
 
-const ACCENT_TEXT_CLASSES = [
-  "text-dusty-rose-300",
-  "text-champagne-300",
-  "text-warm-taupe-300",
-  "text-dusty-rose-200",
-  "text-champagne-200",
-  "text-fresh-sky-blue-300",
-];
+  const ACCENT_COLOR_CLASSES = [
+    "bg-dusty-rose-300",
+    "bg-champagne-300",
+    "bg-warm-taupe-300",
+    "bg-dusty-rose-200",
+    "bg-champagne-200",
+    "bg-fresh-sky-blue-300",
+  ];
 
-export default function Modules() {
+  const ACCENT_TEXT_CLASSES = [
+    "text-dusty-rose-300",
+    "text-champagne-300",
+    "text-warm-taupe-300",
+    "text-dusty-rose-200",
+    "text-champagne-200",
+    "text-fresh-sky-blue-300",
+  ];
+
   return (
     <Section id="modules" className="bg-surface/40">
       <SectionHeader
@@ -39,11 +51,9 @@ export default function Modules() {
               animationDelay: `${index * ANIMATION.MODULE_STAGGER_DELAY}s`,
             }}
           >
-            {/* Color accent bar */}
             <div className={`h-1 w-full ${ACCENT_COLOR_CLASSES[index]}`} />
 
             <div className="p-6 lg:p-7">
-              {/* Number + lesson count */}
               <div className="flex items-center justify-between mb-5">
                 <span
                   className={`font-serif text-3xl font-bold tabular-nums leading-none ${ACCENT_TEXT_CLASSES[index]}`}

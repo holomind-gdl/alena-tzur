@@ -1,17 +1,8 @@
 import { Mail, Phone, MapPin } from "lucide-react";
 import Logo from "@/components/ui/Logo";
+import { brand, email, phone, location } from "@/lib/data";
 
-export default function Footer({
-  siteSettings,
-}: {
-  siteSettings: {
-    brand: string;
-    email: string;
-    phone: string;
-    location: string;
-    navLinks: { href: string; label: string }[];
-  } | null;
-}) {
+export default function Footer() {
   return (
     <footer className="bg-surface-elevated border-t border-border">
       <div className="mx-auto max-w-7xl px-6 lg:px-10 py-14 lg:py-20">
@@ -23,17 +14,15 @@ export default function Footer({
             <p className="text-sm text-text-secondary mb-6 max-w-xs">
               Онлайн-обучение косметологии и профессиям индустрии красоты для начинающих.
             </p>
-            {siteSettings?.email && (
-              <div className="flex items-center gap-3">
-                <a
-                  href={`mailto:${siteSettings.email}`}
-                  className="flex items-center justify-center gap-2 text-sm text-text-secondary hover:text-primary transition-colors"
-                >
-                  <Mail className="h-4 w-4" />
-                  {siteSettings.email}
-                </a>
-              </div>
-            )}
+            <div className="flex items-center gap-3">
+              <a
+                href={`mailto:${email}`}
+                className="flex items-center justify-center gap-2 text-sm text-text-secondary hover:text-primary transition-colors"
+              >
+                <Mail className="h-4 w-4" />
+                {email}
+              </a>
+            </div>
           </div>
 
           <div>
@@ -81,32 +70,28 @@ export default function Footer({
           <div>
             <p className="text-sm font-semibold text-text-primary mb-4">Контакты</p>
             <ul className="space-y-3">
-              {siteSettings?.phone && (
-                <li>
-                  <a
-                    href={`tel:${siteSettings.phone.replace(/\s/g, "")}`}
-                    className="flex items-center gap-2 text-sm text-text-secondary hover:text-primary transition-colors"
-                  >
-                    <Phone className="h-4 w-4" />
-                    {siteSettings.phone}
-                  </a>
-                </li>
-              )}
-              {siteSettings?.location && (
-                <li>
-                  <span className="flex items-center gap-2 text-sm text-text-secondary">
-                    <MapPin className="h-4 w-4" />
-                    {siteSettings.location}
-                  </span>
-                </li>
-              )}
+              <li>
+                <a
+                  href={`tel:${phone.replace(/\s/g, "")}`}
+                  className="flex items-center gap-2 text-sm text-text-secondary hover:text-primary transition-colors"
+                >
+                  <Phone className="h-4 w-4" />
+                  {phone}
+                </a>
+              </li>
+              <li>
+                <span className="flex items-center gap-2 text-sm text-text-secondary">
+                  <MapPin className="h-4 w-4" />
+                  {location}
+                </span>
+              </li>
             </ul>
           </div>
         </div>
 
         <div className="mt-12 pt-8 border-t border-border flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <p className="text-sm text-text-secondary">
-            © 2026 {siteSettings?.brand ?? "Alena Tzur"}. Все права защищены.
+            © 2026 {brand}. Все права защищены.
           </p>
           <a
             href="/privacy"

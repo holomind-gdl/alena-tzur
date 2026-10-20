@@ -3,22 +3,12 @@
 import { motion } from "framer-motion";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { useIsMobile } from "@/hooks/useIsMobile";
+import { course } from "@/lib/data";
 import StatBadge from "@/components/ui/StatBadge";
 import OptimizedImage from "@/components/ui/OptimizedImage";
 import { ANIMATION } from "@/lib/constants";
 
-export default function Hero({
-  course,
-}: {
-  course: {
-    name: string;
-    subtitle: string;
-    description: string;
-    price: string;
-    oldPrice?: string;
-    stats: { value: string; label: string }[];
-  } | null;
-}) {
+export default function Hero() {
   const isMobile = useIsMobile();
   const anim = (delay: number) => ({
     initial: isMobile ? { opacity: 0 } : { opacity: 0, y: 24 },
@@ -26,10 +16,9 @@ export default function Hero({
     transition: { duration: 0.6, delay, ease: ANIMATION.EASE_SMOOTH },
   });
 
-  if (!course) return null;
-
   return (
     <section className="relative overflow-hidden bg-background pt-28 pb-16 lg:pt-36 lg:pb-24">
+      {/* Subtle background accent */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute -top-32 -right-32 h-[600px] w-[600px] rounded-full opacity-30"
@@ -41,6 +30,8 @@ export default function Hero({
 
       <div className="relative mx-auto max-w-7xl px-5 lg:px-10">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+
+          {/* ── LEFT COLUMN ── */}
           <div className="min-w-0 max-w-xl">
             <motion.p {...anim(0)} className="text-sm font-semibold text-primary uppercase tracking-[0.18em] mb-5">
               Онлайн-курс по косметологии
@@ -57,10 +48,11 @@ export default function Hero({
               {course.subtitle}
             </motion.p>
 
-            <motion.ul {...anim(0.25)} className="flex flex-wrap gap-3 mb-10">
+            {/* Proof pills */}
+            <motion.ul {...anim(0.25)} className="flex flex-col gap-3 mb-10 sm:flex-row sm:flex-wrap">
               {[
                 "Без опыта",
-                "48 видеоуроков",
+                "29 тематических уроков",
                 "Сертификат",
                 "Поддержка ментора",
               ].map((tag) => (
@@ -74,6 +66,7 @@ export default function Hero({
               ))}
             </motion.ul>
 
+            {/* CTAs */}
             <motion.div {...anim(0.3)} className="flex flex-wrap gap-3 mb-12">
               <a
                 href="#contact"
@@ -90,6 +83,7 @@ export default function Hero({
               </a>
             </motion.div>
 
+            {/* Stats row */}
             <motion.div {...anim(0.4)} className="flex flex-wrap items-center gap-x-6 gap-y-5 pt-8 border-t border-border sm:gap-8">
               {course.stats.map((s, index) => (
                 <StatBadge key={s.label} value={s.value} label={s.label} index={index} />
@@ -97,6 +91,7 @@ export default function Hero({
             </motion.div>
           </div>
 
+          {/* ── RIGHT COLUMN ── */}
           <motion.div
             initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -128,6 +123,7 @@ export default function Hero({
               </div>
             </div>
           </motion.div>
+
         </div>
       </div>
     </section>

@@ -3,14 +3,9 @@
 import { useState } from "react";
 import { Send, Check, Phone, Mail, CheckCircle2, AlertCircle } from "lucide-react";
 import Section from "@/components/ui/Section";
+import { email, phone } from "@/lib/data";
 
-export default function Contact({
-  email,
-  phone,
-}: {
-  email?: string | null;
-  phone?: string | null;
-}) {
+export default function Contact() {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
   const [formData, setFormData] = useState({ name: "", email: "", phone: "", message: "" });
@@ -44,6 +39,8 @@ export default function Contact({
   return (
     <Section id="contact">
       <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
+
+        {/* ── LEFT ── */}
         <div>
           <p className="text-sm font-semibold text-primary uppercase tracking-[0.18em] mb-4">Записаться</p>
           <h2 className="font-serif text-4xl lg:text-5xl font-bold text-text-primary mb-5 text-balance leading-tight">
@@ -53,6 +50,7 @@ export default function Contact({
             Оставьте заявку — мы свяжемся в течение 2 рабочих дней. Бесплатная консультация по программе и условиям.
           </p>
 
+          {/* Benefits */}
           <ul className="space-y-4 mb-10">
             {[
               "Бесплатный звонок с разбором вашей ситуации",
@@ -67,22 +65,20 @@ export default function Contact({
             ))}
           </ul>
 
+          {/* Contact info */}
           <div className="space-y-3 pt-8 border-t border-border">
-            {phone && (
-              <a href={`tel:${phone}`} className="flex items-center gap-3 text-sm text-text-secondary hover:text-text-primary transition-colors">
-                <Phone className="h-4 w-4 text-primary" />
-                {phone}
-              </a>
-            )}
-            {email && (
-              <a href={`mailto:${email}`} className="flex items-center gap-3 text-sm text-text-secondary hover:text-text-primary transition-colors">
-                <Mail className="h-4 w-4 text-primary" />
-                {email}
-              </a>
-            )}
+            <a href={`tel:${phone}`} className="flex items-center gap-3 text-sm text-text-secondary hover:text-text-primary transition-colors">
+              <Phone className="h-4 w-4 text-primary" />
+              {phone}
+            </a>
+            <a href={`mailto:${email}`} className="flex items-center gap-3 text-sm text-text-secondary hover:text-text-primary transition-colors">
+              <Mail className="h-4 w-4 text-primary" />
+              {email}
+            </a>
           </div>
         </div>
 
+        {/* ── RIGHT: Form ── */}
         <form
           onSubmit={handleSubmit}
           className="bg-surface rounded-3xl border border-border p-8 lg:p-10"
@@ -99,8 +95,8 @@ export default function Contact({
           ) : (
             <>
               {status === "error" && (
-                <div className="mb-6 p-4 rounded-lg bg-red-50 border border-red-200 flex items-center gap-3 text-red-700">
-                  <AlertCircle className="h-5 w-5 shrink-0" />
+                <div role="alert" className="mb-6 p-4 rounded-lg bg-red-50 border border-red-200 flex items-center gap-3 text-red-700">
+                  <AlertCircle className="h-5 w-5 shrink-0" aria-hidden="true" />
                   <p className="text-sm">{errorMessage}</p>
                 </div>
               )}
@@ -117,7 +113,7 @@ export default function Contact({
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       placeholder="Ваше имя"
                       className="input-base"
-                      aria-describedby={status === "error" ? "name-error" : undefined}
+                      autoComplete="name"
                     />
                   </div>
                   <div>
@@ -128,7 +124,7 @@ export default function Contact({
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       placeholder="email@example.com"
                       className="input-base"
-                      aria-describedby={status === "error" ? "email-error" : undefined}
+                      autoComplete="email"
                     />
                   </div>
                 </div>
@@ -139,7 +135,7 @@ export default function Contact({
                     type="tel" id="phone" name="phone"
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    placeholder="+7 ___ ___ __ __"
+                    placeholder="+972 50 123 4567"
                     className="input-base"
                   />
                 </div>

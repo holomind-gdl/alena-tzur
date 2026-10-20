@@ -9,35 +9,59 @@ import {
   resultsQuery,
   siteSettingsQuery,
 } from '@/sanity/queries'
+import {
+  brand,
+  course,
+  curriculum,
+  email,
+  faq,
+  instructor,
+  modules,
+  navLinks,
+  phone,
+  location,
+  pricing,
+  results,
+} from '@/lib/data'
 
-export async function getSiteSettings() {
-  return client.fetch(siteSettingsQuery)
+async function fetchOrFallback<T>(query: string, fallback: T): Promise<T> {
+  if (!client) return fallback
+
+  try {
+    return (await client.fetch<T>(query)) ?? fallback
+  } catch {
+    return fallback
+  }
 }
 
-export async function getCourse() {
-  return client.fetch(courseQuery)
+export function getSiteSettings() {
+  return fetchOrFallback(siteSettingsQuery, { brand, navLinks, email, phone, location })
 }
 
-export async function getModules() {
-  return client.fetch(modulesQuery)
+export function getCourse() {
+  return fetchOrFallback(courseQuery, course)
 }
 
-export async function getCurriculum() {
-  return client.fetch(curriculumQuery)
+export function getModules() {
+  return fetchOrFallback(modulesQuery, modules)
 }
 
-export async function getInstructor() {
-  return client.fetch(instructorQuery)
+export function getCurriculum() {
+  return fetchOrFallback(curriculumQuery, curriculum)
 }
 
-export async function getResults() {
-  return client.fetch(resultsQuery)
+export function getInstructor() {
+  return fetchOrFallback(instructorQuery, instructor)
 }
 
-export async function getPricing() {
-  return client.fetch(pricingQuery)
+export function getResults() {
+  return fetchOrFallback(resultsQuery, results)
 }
 
-export async function getFAQ() {
-  return client.fetch(faqQuery)
+export function getPricing() {
+  return fetchOrFallback(pricingQuery, pricing)
+}
+
+export function getFAQ() {
+  return fetchOrFallback(faqQuery, faq)
 }

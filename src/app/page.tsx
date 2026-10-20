@@ -11,68 +11,38 @@ import {
   Footer,
 } from "@/components/sections";
 import ErrorBoundary from "@/components/ui/ErrorBoundary";
-import {
-  getSiteSettings,
-  getCourse,
-  getModules,
-  getCurriculum,
-  getInstructor,
-  getResults,
-  getPricing,
-  getFAQ,
-} from "@/lib/sanity-fetch";
 
-export default async function Home() {
-  const [
-    siteSettings,
-    course,
-    modules,
-    curriculum,
-    instructor,
-    results,
-    pricing,
-    faqs,
-  ] = await Promise.all([
-    getSiteSettings(),
-    getCourse(),
-    getModules(),
-    getCurriculum(),
-    getInstructor(),
-    getResults(),
-    getPricing(),
-    getFAQ(),
-  ]);
-
+export default function Home() {
   return (
     <div id="top">
-      <Navbar brand={siteSettings?.brand} navLinks={siteSettings?.navLinks ?? []} />
+      <Navbar />
       <main id="main-content">
         <ErrorBoundary>
-          <Hero course={course} />
+          <Hero />
         </ErrorBoundary>
         <ErrorBoundary>
-          <Modules modules={modules} />
+          <Modules />
         </ErrorBoundary>
         <ErrorBoundary>
-          <Curriculum modules={modules} />
+          <Curriculum />
         </ErrorBoundary>
         <ErrorBoundary>
-          <Instructor instructor={instructor} />
+          <Instructor />
         </ErrorBoundary>
         <ErrorBoundary>
-          <Results results={results} />
+          <Results />
         </ErrorBoundary>
         <ErrorBoundary>
-          <Pricing pricing={pricing} />
+          <Pricing />
         </ErrorBoundary>
         <ErrorBoundary>
-          <FAQ faqs={faqs} />
+          <FAQ />
         </ErrorBoundary>
         <ErrorBoundary>
-          <Contact email={siteSettings?.email ?? undefined} phone={siteSettings?.phone ?? undefined} />
+          <Contact />
         </ErrorBoundary>
       </main>
-      <Footer siteSettings={siteSettings} />
+      <Footer />
     </div>
   );
 }
